@@ -35,8 +35,10 @@ function updateFilters() {
   //console.log("element", changeElement);
   // 4b. Save the value that was changed as a variable.
   var changeValue = changeElement.property("value");
+  //console.log("value", changeValue);
   // 4c. Save the id of the filter that was changed as a variable.
   var changeID = changeElement.attr("id");
+  //console.log("ID", changeID);
 
   // 5. If a filter value was entered then add that filterId and value
   // to the filters list. Otherwise, clear that filter from the filters object.
@@ -46,7 +48,8 @@ function updateFilters() {
   else {
     delete filters[changeID]
   };
-
+  console.log("filters", filters);
+  //console.log("testing changed elements", changeValue);
   // 6. Call function to apply all filters and rebuild the table
   filterTable()
 
@@ -57,11 +60,12 @@ function filterTable() {
 
   // 8. Set the filtered data to the tableData.
   changeValue = tableData
+  console.log("changeValue", changeValue);
 
   // 9. Loop through all of the filters and keep any data that
   // matches the filter values
   Object.entries(filters).forEach(function ([key, value]) {
-    data.filters([key, value])
+    data.filter([key, value])
 
   })
 
@@ -72,7 +76,7 @@ function filterTable() {
 };
 // 2. Attach an event to listen for changes to each filter
 
-d3.selectAll("#filter").on("click", updateFilters);
+d3.selectAll("#datetime, #city, #state, #country, #shape").on("click", updateFilters);
 
 // Build the table when the page loads
 buildTable(tableData);
