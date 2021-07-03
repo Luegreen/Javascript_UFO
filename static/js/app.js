@@ -35,7 +35,7 @@ function updateFilters() {
   //console.log("element", changeElement);
   // 4b. Save the value that was changed as a variable.
   var changeValue = changeElement.property("value");
-  //console.log("value", changeValue);
+  console.log("value", changeValue);
   // 4c. Save the id of the filter that was changed as a variable.
   var changeID = changeElement.attr("id");
   //console.log("ID", changeID);
@@ -43,12 +43,14 @@ function updateFilters() {
   // 5. If a filter value was entered then add that filterId and value
   // to the filters list. Otherwise, clear that filter from the filters object.
   if (changeValue) {
-    filters[changeID] = changeValue
+    //this next piece of code looks wrong. I want it to store the new list? to filters to be used as a filter.
+    //filters[changeID] = changeValue
+    filters = changeValue
   }
   else {
     delete filters[changeID]
   };
-  console.log("filters", filters);
+  //console.log("filters", filters);
   //console.log("testing changed elements", changeValue);
   // 6. Call function to apply all filters and rebuild the table
   filterTable()
