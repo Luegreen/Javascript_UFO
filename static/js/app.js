@@ -45,7 +45,7 @@ function updateFilters() {
 
   // 5. If a filter value was entered then add that filterId and value
   // to the filters list. Otherwise, clear that filter from the filters object.
-  if (dateChangeValue) {
+  if (dateChangeValue!== null) {
     //this next piece of code looks wrong. I want it to store the new list? to filters to be used as a filter.
     //filters[changeID] = changeValue
     filters = dateChangeValue
@@ -53,7 +53,7 @@ function updateFilters() {
   else {
     delete filters[dateChangeID]
   };
-  //console.log("filters", filters);
+  console.log("filters", filters);
   //console.log("testing changed elements", changeValue);
   // 6. Call function to apply all filters and rebuild the table
   filterTable()
@@ -64,8 +64,8 @@ function updateFilters() {
 function filterTable() {
 
   // 8. Set the filtered data to the tableData.
-  changeValue = tableData;
-  console.log("changeValue", changeValue);
+  filters = tableData;
+  //console.log("dateChangeValue", dateChangeValue);
 
   // 9. Loop through all of the filters and keep any data that
   // matches the filter values
