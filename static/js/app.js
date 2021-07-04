@@ -64,15 +64,18 @@ function updateFilters() {
 function filterTable() {
 
   // 8. Set the filtered data to the tableData.
-  filters = tableData;
-  //console.log("dateChangeValue", dateChangeValue);
+  filteredObject = tableData;
+  console.log("tableData", tableData);//tableData still has all data
 
   // 9. Loop through all of the filters and keep any data that
   // matches the filter values
-  Object.entries(filters).forEach(function ([key, value]) {
-    data.filter([key, value])
+  //const filteredObject = 
+//var filteredEntries = Object.entries(tableData).filter(v) => (filters.includes(v));
+ // var filteredObject = Object.fromEntries(filteredEntries);
+ const filteredObject = tableData.filter(tableData.datetime) => (filters); 
+ console.log("filteredEntries", filteredEntries)
 
-  })
+  
 
 
     // 10. Finally, rebuild the table using the filtered data
