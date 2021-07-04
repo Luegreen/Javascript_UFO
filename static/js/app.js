@@ -31,13 +31,17 @@ function updateFilters() {
   //console.log("runningUpdateFilters");
 
   // 4a. Save the element that was changed as a variable.
-  var changeElement = d3.select(this);
-  //console.log("element", changeElement);
+  var changeElement = d3.select(this); 
+  //var changeElement = d3.select(this);
+  console.log("element", this, changeElement);
   // 4b. Save the value that was changed as a variable.
-  var changeValue = changeElement.property("value");
-  console.log("value", changeValue);
+  //value is not being passed
+  //var changeValue = d3.value(changeElement.property);
+  var changeValue = d3.select(changeElement).property("value");
+  //console.log('value', changeValue);
   // 4c. Save the id of the filter that was changed as a variable.
-  var changeID = changeElement.attr("id");
+  //var changeID = changeElement.attr("id");
+  var changeID = d3.select(changeElement).id;
   //console.log("ID", changeID);
 
   // 5. If a filter value was entered then add that filterId and value
@@ -61,7 +65,7 @@ function updateFilters() {
 function filterTable() {
 
   // 8. Set the filtered data to the tableData.
-  changeValue = tableData
+  changeValue = tableData;
   console.log("changeValue", changeValue);
 
   // 9. Loop through all of the filters and keep any data that
@@ -78,7 +82,7 @@ function filterTable() {
 };
 // 2. Attach an event to listen for changes to each filter
 
-d3.selectAll("#datetime, #city, #state, #country, #shape").on("click", updateFilters);
+d3.selectAll("#datetime, #city, #state, #country, #shape").on("change", updateFilters);
 
 // Build the table when the page loads
 buildTable(tableData);
