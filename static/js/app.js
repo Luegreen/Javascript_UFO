@@ -34,29 +34,38 @@ function updateFilters() {
   //console.log("runningUpdateFilters");
 
   // 4a. Save the element that was changed as a variable.
-  var dateChangeID = d3.select("#datetime");
+  let changedElement = d3.select(this);
+  //var dateChangeID = d3.select("#datetime");
   //var changeElement = d3.select(this); 
-  console.log("dateID", dateChangeID);
+  //console.log("dateID", dateChangeID);
   // 4b. Save the value that was changed as a variable.
   //value is not being passed
-  var dateChangeValue = d3.select("#datetime").node().value;
-  console.log('dateChangeValue', dateChangeValue);
+  let elementValue = changedElement.property("value");
+  //var dateChangeValue = d3.select("#datetime").node().value;
+  //console.log('dateChangeValue', dateChangeValue);
   // 4c. Save the id of the filter that was changed as a variable.
+  let filterId = changedElement.attr("id");
   //var changeID = changeElement.attr("id");
   //var changeID = d3.select(changeElement).id;
   //console.log("ID", changeID);
 
   // 5. If a filter value was entered then add that filterId and value
   // to the filters list. Otherwise, clear that filter from the filters object.
-  if (dateChangeValue!== null) {
-    //this next piece of code looks wrong. I want it to store the new list? to filters to be used as a filter.
-    //filters[changeID] = changeValue
-    filters = dateChangeValue;
+  if (elementValue) {
+    filters[filterId] = elementValue;
   }
   else {
-    delete filters[dateChangeID];
+    delete filters[filterId];
   }
-  console.log("filters", filters);
+  //if (dateChangeValue!== null) {
+    //this next piece of code looks wrong. I want it to store the new list? to filters to be used as a filter.
+    //filters[changeID] = changeValue
+   // filters = dateChangeValue;
+  //}
+  //else {
+    //delete filters[dateChangeID];
+  //}
+  //console.log("filters", filters);
   //console.log("testing changed elements", changeValue);
   // 6. Call function to apply all filters and rebuild the table
   filterTable();
@@ -67,7 +76,7 @@ function updateFilters() {
 function filterTable() {
 
   // 8. Set the filtered data to the tableData.
-  filteredObject = tableData;
+  let filteredData = tableData;
   console.log("tableData", tableData);//tableData still has all data
 
   // 9. Loop through all of the filters and keep any data that
@@ -76,20 +85,29 @@ function filterTable() {
   //var filteredEntries = Object.entries(tableData).filter(v) => (filters.includes(v));
   // var filteredObject = Object.fromEntries(filteredEntries);
   //var filteredObject = tableData.filter(tableData.datetime), 'return filters;'); 
- var filteredObject = Object.fromEntries(
-    Object.entries(tableData).filter(
-      ([key, val])=> filteredObject.includes(val)
-    )
- );
- console.log("filteredObject", filteredObject);
+  
+  //var filteredEntries = Object.fromEntries(
+  //  Object.entries(tableData).filter(
+  //    ([datetime, filters])=> filteredEntries.includes(filters)
+  //  )
+ //);
+
+ Object.entries(filters).forEach(([key, value]) => {
+  filteredData = filteredData.filter(row => row[key] === value);
+});
+ //console.log("filteredEntries", filteredEntries);
+ 
+ //var filteredObject = Object.fromEntries(filteredEntries);
+ //console.log("filteredObject", filteredObject);
 
   
 
 
     // 10. Finally, rebuild the table using the filtered data
-    buildTable(tableData);
-
+    buildTable(filteredData);
 }
+
+
 // 2. Attach an event to listen for changes to each filter
 
 d3.selectAll("#datetime, #city, #state, #country, #shape").on("change", updateFilters);
