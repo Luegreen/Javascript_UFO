@@ -31,28 +31,27 @@ function updateFilters() {
   //console.log("runningUpdateFilters");
 
   // 4a. Save the element that was changed as a variable.
-  var changeElement = d3.select(this); 
-  //var changeElement = d3.select(this);
-  console.log("element", this, changeElement);
+  var dateChangeID = d3.select("#datetime")
+  //var changeElement = d3.select(this); 
+  console.log("dateID", dateChangeID);
   // 4b. Save the value that was changed as a variable.
   //value is not being passed
-  //var changeValue = d3.value(changeElement.property);
-  var changeValue = d3.select(changeElement).property("value");
-  //console.log('value', changeValue);
+  var dateChangeValue = d3.select("#datetime").node().value;
+  console.log('dateChangeValue', dateChangeValue);
   // 4c. Save the id of the filter that was changed as a variable.
   //var changeID = changeElement.attr("id");
-  var changeID = d3.select(changeElement).id;
+  //var changeID = d3.select(changeElement).id;
   //console.log("ID", changeID);
 
   // 5. If a filter value was entered then add that filterId and value
   // to the filters list. Otherwise, clear that filter from the filters object.
-  if (changeValue) {
+  if (dateChangeValue) {
     //this next piece of code looks wrong. I want it to store the new list? to filters to be used as a filter.
     //filters[changeID] = changeValue
-    filters = changeValue
+    filters = dateChangeValue
   }
   else {
-    delete filters[changeID]
+    delete filters[dateChangeID]
   };
   //console.log("filters", filters);
   //console.log("testing changed elements", changeValue);
