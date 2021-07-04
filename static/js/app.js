@@ -1,3 +1,6 @@
+
+/*jshint esversion: 6 */
+
 // from data.js
 const tableData = data;
 
@@ -24,14 +27,14 @@ function buildTable(data) {
 }
 
 // 1. Create a variable to keep track of all the filters as an object.
-filters = {}
+var filters = {};
 
 // 3. Use this function to update the filters. 
 function updateFilters() {
   //console.log("runningUpdateFilters");
 
   // 4a. Save the element that was changed as a variable.
-  var dateChangeID = d3.select("#datetime")
+  var dateChangeID = d3.select("#datetime");
   //var changeElement = d3.select(this); 
   console.log("dateID", dateChangeID);
   // 4b. Save the value that was changed as a variable.
@@ -48,15 +51,15 @@ function updateFilters() {
   if (dateChangeValue!== null) {
     //this next piece of code looks wrong. I want it to store the new list? to filters to be used as a filter.
     //filters[changeID] = changeValue
-    filters = dateChangeValue
+    filters = dateChangeValue;
   }
   else {
-    delete filters[dateChangeID]
-  };
+    delete filters[dateChangeID];
+  }
   console.log("filters", filters);
   //console.log("testing changed elements", changeValue);
   // 6. Call function to apply all filters and rebuild the table
-  filterTable()
+  filterTable();
 
 }
 
@@ -70,18 +73,23 @@ function filterTable() {
   // 9. Loop through all of the filters and keep any data that
   // matches the filter values
   //const filteredObject = 
-//var filteredEntries = Object.entries(tableData).filter(v) => (filters.includes(v));
- // var filteredObject = Object.fromEntries(filteredEntries);
- const filteredObject = tableData.filter(tableData.datetime) => (filters); 
- console.log("filteredEntries", filteredEntries)
+  //var filteredEntries = Object.entries(tableData).filter(v) => (filters.includes(v));
+  // var filteredObject = Object.fromEntries(filteredEntries);
+  //var filteredObject = tableData.filter(tableData.datetime), 'return filters;'); 
+ var filteredObject = Object.fromEntries(
+    Object.entries(tableData).filter(
+      ([key, val])=> filteredObject.includes(val)
+    )
+ );
+ console.log("filteredObject", filteredObject);
 
   
 
 
     // 10. Finally, rebuild the table using the filtered data
-    buildTable(tableData)
+    buildTable(tableData);
 
-};
+}
 // 2. Attach an event to listen for changes to each filter
 
 d3.selectAll("#datetime, #city, #state, #country, #shape").on("change", updateFilters);
